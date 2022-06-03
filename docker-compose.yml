@@ -1,0 +1,45 @@
+version: '3.7'
+ 
+services: 
+  django:
+      extends:
+          file: ./crypto/docker-compose.yml
+          service: django
+      depends_on:
+        - db
+        - redis
+
+  celery:
+    extends:
+        file: ./crypto/docker-compose.yml
+        service: celery
+
+    depends_on:
+      - django
+      - redis
+  db:
+      extends:
+          file: ./crypto/docker-compose.yml
+          service: db
+  redis:
+      extends:
+          file: ./crypto/docker-compose.yml
+          service: redis
+  celery-beat:
+      extends:
+          file: ./crypto/docker-compose.yml
+          service: celery-beat
+      depends_on:
+        - django
+        - redis
+        - celery
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    
+volumes:
+  data:
+    
