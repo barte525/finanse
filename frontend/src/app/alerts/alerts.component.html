@@ -1,0 +1,46 @@
+
+<div class="container" style="margin-top: 2rem;">
+  <div class="row">
+<div *ngFor="let alert of alerts; let i = index" class="col p-2" [ngClass]="{ 'col-12' : alerts.length==3&& i==2}">
+  <div class="card" style="width: 25rem; margin: 1rem;">
+    <h5 class="card-title" style="margin: 1rem;">Alert {{i+1}}</h5>
+    <form class="form-floating">
+      <input type="email" class="form-control" id="floatingInputInvalid" [(ngModel)]="alert.email" [ngModelOptions]="{standalone: true}" value="{{alert.email}}">
+      <label for="floatingInputInvalid">Email</label>
+    </form>
+      <form class="form-floating">
+      <select class="form-select" id="floatingSelect" [(ngModel)]="alert.asset_name" name="asset_name" ngDefaultControl aria-label="Floating label select example">
+        <option *ngFor="let asset of assets"
+          [value]="asset.name"
+          [attr.selected]="asset.name==alert.asset_name ? true : null">
+          {{asset.name}}
+        </option>
+      </select>
+      <label for="floatingSelect">Asset name</label>
+    </form>
+    <form class="form-floating">
+      <input class="form-control"id="value" [(ngModel)]="alert.value" [ngModelOptions]="{standalone: true}" value="{{alert.value}}">
+      <label for="value">Value</label>
+    </form>
+    <form class="form-floating">
+      <select class="form-select" id="floatingSelect2" [(ngModel)]="alert.currency" name="asset_name" ngDefaultControl aria-label="Floating label select example">
+        <option *ngFor="let currency of currencies"
+          [value]="currency.currency"
+          [attr.selected]="currency.currency==alert.currency ? true : null">
+          {{currency.currency}}
+        </option>
+      </select>
+      <label for="floatingSelect2">Currency</label>
+    </form>
+    <div class="card-body">
+      <button type="button" class="btn btn-success" title="update alert" style="width: 40%; margin: 5%"
+      (click)="save(alert)" >Update</button>
+      <button type="button" class="btn btn-danger" title="delete alert" style="width: 40%; margin: 5%"
+      (click)="delete(alert)" >Delete</button>
+    </div>
+  </div>
+  </div>
+  </div>
+</div>
+<button type="button" class="btn btn-primary"  style="width: 18rem; margin-left: 37%; margin-bottom: 5%;" (click)="add()">Add Alert</button>
+

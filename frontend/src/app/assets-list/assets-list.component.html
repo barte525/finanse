@@ -1,0 +1,19 @@
+<div class="container" style="margin-top: 5rem;">
+  <div class="row">
+    <div *ngFor="let asset of assets" class="col-sm">
+      <div class="card" style="width: 18rem; margin: 2rem;">
+        <h5 class="card-title" style="margin: 1rem;">{{asset.name}}</h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Price EUR: {{asset.priceEUR}}</li>
+          <li class="list-group-item">Price USD: {{asset.priceUSD}}</li>
+          <li class="list-group-item">Price PLN: {{asset.pricePLN}}</li>
+        </ul>
+        <button class="btn btn-info" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#' +  asset.name" aria-expanded="false" aria-controls="collapseExample">
+          ViewDetails
+        </button>
+      <div class="collapse" id="{{asset.name}}">
+          {{asset.description}}
+      </div>
+      </div>
+    </div>
+</div>
